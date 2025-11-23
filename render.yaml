@@ -6,19 +6,25 @@ services:
     region: frankfurt
     branch: main
     
+    # Build Command - устанавливает зависимости
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    
+    # Start Command - запускает бот
     startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 bot:app
     
+    # Health Check для мониторинга
     healthCheckPath: /health
     
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
       
+      # 🔒 Секретные переменные - устанавливаются в Render Dashboard
       - key: BOT_TOKEN
         sync: false
       
-      - key: ADMIN_ID
+      # 🔥 НЕСКОЛЬКО АДМИНОВ через запятую (например: 123456789,987654321)
+      - key: ADMIN_IDS
         sync: false
       
       - key: CHANNEL_USERNAME
@@ -28,4 +34,12 @@ services:
         sync: false
       
       - key: RENDER_URL
+        sync: false
+      
+      # 🔒 Секретный ключ для служебных эндпоинтов (автогенерируется если не указан)
+      - key: ADMIN_SECRET
+        sync: false
+      
+      # 🔥 СЕКРЕТНЫЙ ПУТЬ для webhook (автогенерируется если не указан)
+      - key: WEBHOOK_SECRET_PATH
         sync: false

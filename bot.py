@@ -1,6 +1,8 @@
 """
-ARCTURUS Bot - Полная рабочая версия
-Всё в одном файле как твой локальный бот + Flask для Render
+ARCTURUS Bot - Безопасная версия для Render
+✅ Токен защищён секретным путём webhook
+✅ Поддержка нескольких админов
+✅ Полная защита от утечек данных в логах
 """
 
 import os
@@ -8,40 +10,97 @@ import sys
 import logging
 import threading
 import time
+import secrets
 from flask import Flask, request, jsonify
 import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-# ==================== ЛОГИРОВАНИЕ ====================
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler(sys.stdout)]
-)
+# ==================== БЕЗОПАСНОЕ ЛОГИРОВАНИЕ ====================
+class SecureFormatter(logging.Formatter):
+    """Кастомный форматтер, который скрывает чувствительные данные"""
+    sensitive_data = []
+    
+    def format(self, record):
+        original = super().format(record)
+        result = original
+        for secret in self.sensitive_data:
+            if secret and len(str(secret)) > 5:
+                result = result.replace(str(secret), '***HIDDEN***')
+        return result
+
+handler = logging.StreamHandler(sys.stdout)
+secure_formatter = SecureFormatter('%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(secure_formatter)
+
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger.addHandler(handler)
+
+# Отключаем логи библиотек
+logging.getLogger('urllib3').setLevel(logging.WARNING)
+logging.getLogger('telebot').setLevel(logging.WARNING)
+logging.getLogger('werkzeug').setLevel(logging.WARNING)
 
 # ==================== КОНФИГУРАЦИЯ ====================
 BOT_TOKEN = os.getenv('BOT_TOKEN', '')
-ADMIN_ID = int(os.getenv('ADMIN_ID', '0'))
+
+# 🔥 ПОДДЕРЖКА НЕСКОЛЬКИХ АДМИНОВ через запятую
+ADMIN_IDS_STR = os.getenv('ADMIN_IDS', '')
+ADMIN_IDS = []
+
+if ADMIN_IDS_STR:
+    try:
+        ADMIN_IDS = [int(id.strip()) for id in ADMIN_IDS_STR.split(',') if id.strip()]
+        if not ADMIN_IDS:
+            raise ValueError("Список админов пуст")
+    except Exception as e:
+        logger.error(f"❌ Ошибка парсинга ADMIN_IDS: {e}")
+        logger.error(f"Формат должен быть: 123456789,987654321")
+        sys.exit(1)
+else:
+    logger.error("❌ ADMIN_IDS не установлен!")
+    sys.exit(1)
+
 CHANNEL_USERNAME = os.getenv('CHANNEL_USERNAME', '')
 WEBAPP_URL = os.getenv('WEBAPP_URL', '')
 RENDER_URL = os.getenv('RENDER_URL', '')
 PORT = int(os.getenv('PORT', '10000'))
 TRIGGER_HASHTAG = '#arcturus'
 
-# Секретный ключ для доступа к служебным эндпоинтам
-ADMIN_SECRET = os.getenv('ADMIN_SECRET', 'change_me_in_production')  # ← НОВОЕ!
+# 🔒 Секретный ключ для доступа к служебным эндпоинтам
+ADMIN_SECRET = os.getenv('ADMIN_SECRET', '')
+if not ADMIN_SECRET:
+    logger.warning("⚠️ ADMIN_SECRET не установлен! Генерирую случайный...")
+    ADMIN_SECRET = secrets.token_urlsafe(32)
+    logger.info(f"🔑 Сгенерированный ключ (сохрани!): {ADMIN_SECRET}")
+
+# 🔥 СЕКРЕТНЫЙ ПУТЬ для webhook (вместо токена!)
+WEBHOOK_SECRET_PATH = os.getenv('WEBHOOK_SECRET_PATH', '')
+if not WEBHOOK_SECRET_PATH:
+    logger.warning("⚠️ WEBHOOK_SECRET_PATH не установлен! Генерирую случайный...")
+    WEBHOOK_SECRET_PATH = secrets.token_urlsafe(32)
+    logger.info(f"🔑 Сгенерированный путь (сохрани!): {WEBHOOK_SECRET_PATH}")
+
+# Добавляем все секреты в список для скрытия в логах
+SecureFormatter.sensitive_data = [
+    BOT_TOKEN,
+    ADMIN_SECRET,
+    WEBHOOK_SECRET_PATH,
+    *[str(id) for id in ADMIN_IDS]
+]
 
 # Проверка переменных
-if not all([BOT_TOKEN, ADMIN_ID, CHANNEL_USERNAME, WEBAPP_URL, RENDER_URL]):
+if not all([BOT_TOKEN, CHANNEL_USERNAME, WEBAPP_URL, RENDER_URL]):
     logger.error("❌ Не все переменные окружения установлены!")
     sys.exit(1)
 
 logger.info("=" * 70)
 logger.info("✅ КОНФИГУРАЦИЯ ЗАГРУЖЕНА")
-logger.info(f"👤 Admin ID: {ADMIN_ID}")
 logger.info(f"📢 Канал: {CHANNEL_USERNAME}")
 logger.info(f"🌐 WebApp: {WEBAPP_URL}")
+logger.info(f"👥 Количество админов: {len(ADMIN_IDS)}")
+logger.info(f"🔐 Секретный ключ: ✅ установлен")
+logger.info(f"🔐 Webhook путь: ✅ защищён")
 logger.info("=" * 70)
 
 # ==================== БОТ ====================
@@ -51,25 +110,29 @@ bot = telebot.TeleBot(BOT_TOKEN, threaded=False)
 forwarded_messages = {}
 
 def is_admin(message):
-    """Проверка админа"""
-    return message.from_user.id == ADMIN_ID
+    """Проверка админа (поддержка нескольких админов)"""
+    return message.from_user.id in ADMIN_IDS
 
 def create_markup():
     """Создание кнопки с ссылкой на WebApp"""
     markup = InlineKeyboardMarkup()
     info_button = InlineKeyboardButton(
         text="📱 Открыть каталог",
-        url=WEBAPP_URL  # ← ИСПРАВЛЕНО! Обычная URL вместо WebApp
+        url=WEBAPP_URL
     )
     markup.row(info_button)
     return markup
+
+def safe_log_message(message, action):
+    """Безопасное логирование без персональных данных"""
+    return f"{action} от {'админ' if is_admin(message) else 'неавторизованный пользователь'}"
 
 # ==================== HANDLERS ====================
 
 @bot.message_handler(func=lambda message: not is_admin(message))
 def handle_unauthorized(message):
     """Удаляем сообщения от не-админов"""
-    logger.warning(f"⚠️ Неавторизованный доступ: {message.from_user.id}")
+    logger.warning("⚠️ Попытка неавторизованного доступа (детали скрыты)")
     try:
         bot.delete_message(message.chat.id, message.message_id)
     except:
@@ -81,7 +144,7 @@ def cmd_start(message):
     if not is_admin(message):
         return
     
-    logger.info(f"🔔 /start от {message.from_user.username} (ID: {message.from_user.id})")
+    logger.info(safe_log_message(message, "🔔 /start"))
     
     text = (
         f"✅ <b>Привет, админ!</b>\n\n"
@@ -90,6 +153,7 @@ def cmd_start(message):
         f"2. Добавь хэштег <code>{TRIGGER_HASHTAG}</code>\n"
         f"3. Пост опубликуется с кнопкой WebApp!\n\n"
         f"📢 Канал: {CHANNEL_USERNAME}\n"
+        f"👥 Админов: {len(ADMIN_IDS)}\n\n"
         f"<b>Команды:</b>\n"
         f"/start - Это сообщение\n"
         f"/status - Статус бота"
@@ -107,14 +171,16 @@ def cmd_status(message):
         bot.get_chat(CHANNEL_USERNAME)
         channel_status = "✅ Подключён"
     except Exception as e:
-        channel_status = f"❌ {str(e)}"
+        channel_status = f"❌ Ошибка подключения"
+        logger.error("Ошибка проверки канала")
     
     text = (
         f"🤖 <b>Статус бота</b>\n\n"
         f"<b>Канал:</b> {CHANNEL_USERNAME}\n"
         f"<b>Статус:</b> {channel_status}\n"
         f"<b>Триггер:</b> {TRIGGER_HASHTAG}\n"
-        f"<b>WebApp:</b> {WEBAPP_URL}\n\n"
+        f"<b>WebApp:</b> {WEBAPP_URL}\n"
+        f"<b>Админов:</b> {len(ADMIN_IDS)}\n\n"
         f"✅ Бот активен"
     )
     
@@ -133,7 +199,7 @@ def handle_all_messages(message):
     
     # ==================== ПЕРЕСЛАННЫЕ СООБЩЕНИЯ ====================
     if message.forward_date or message.forward_from or message.forward_from_chat:
-        logger.info(f"📨 Получено пересланное сообщение от {message.from_user.username}")
+        logger.info(safe_log_message(message, "📨 Получено пересланное сообщение"))
         
         # Инициализируем буфер
         if user_id not in forwarded_messages:
@@ -181,7 +247,7 @@ def handle_all_messages(message):
                             )
                             logger.info("✅ Кнопка добавлена к последнему сообщению")
                         except Exception as e:
-                            logger.warning(f"⚠️ Не удалось добавить кнопку: {e}")
+                            logger.warning("⚠️ Не удалось добавить кнопку, отправляю отдельно")
                             # Отправляем отдельно
                             bot.send_message(
                                 chat_id=CHANNEL_USERNAME,
@@ -190,7 +256,7 @@ def handle_all_messages(message):
                             )
                 
                 except Exception as e:
-                    logger.error(f"❌ Ошибка пересылки: {e}")
+                    logger.error("❌ Ошибка пересылки сообщений")
         
         # Запускаем в отдельном потоке
         threading.Thread(target=process_forwarded_group, daemon=True).start()
@@ -213,7 +279,7 @@ def handle_all_messages(message):
                     disable_notification=True
                 )
                 
-                logger.info(f"✅ Пост скопирован в канал (ID: {sent_msg.message_id})")
+                logger.info("✅ Пост скопирован в канал")
                 
                 # Добавляем кнопку
                 try:
@@ -224,7 +290,7 @@ def handle_all_messages(message):
                     )
                     logger.info("✅ Кнопка добавлена к посту")
                 except Exception as e:
-                    logger.warning(f"⚠️ Не удалось добавить кнопку: {e}")
+                    logger.warning("⚠️ Не удалось добавить кнопку, отправляю отдельно")
                     # Отправляем отдельно
                     bot.send_message(
                         chat_id=CHANNEL_USERNAME,
@@ -256,10 +322,10 @@ def handle_all_messages(message):
                 threading.Thread(target=delete_notification, daemon=True).start()
                 
             except Exception as e:
-                logger.error(f"❌ Ошибка публикации: {e}")
+                logger.error("❌ Ошибка публикации поста")
                 bot.send_message(
                     message.chat.id,
-                    f"❌ <b>Ошибка:</b> {str(e)}",
+                    f"❌ <b>Ошибка публикации</b>\nПопробуйте ещё раз",
                     parse_mode='HTML'
                 )
 
@@ -271,6 +337,7 @@ def check_admin_access():
     """Проверка доступа к служебным эндпоинтам"""
     secret = request.args.get('secret')
     if secret != ADMIN_SECRET:
+        logger.warning("⚠️ Попытка несанкционированного доступа к служебному эндпоинту")
         return False
     return True
 
@@ -316,13 +383,15 @@ def index():
             <div class="info">
                 <p><strong>Канал:</strong> {CHANNEL_USERNAME}</p>
                 <p><strong>WebApp:</strong> <a href="{WEBAPP_URL}" target="_blank">Открыть</a></p>
+                <p><strong>Админов:</strong> {len(ADMIN_IDS)}</p>
                 <p><strong>Webhook вызовов:</strong> {webhook_count}</p>
             </div>
             <p>
                 <a href="/health">Health Check</a>
             </p>
             <p style="font-size: 0.9em; opacity: 0.7; margin-top: 20px;">
-                🔒 Служебные эндпоинты защищены
+                🔒 Служебные эндпоинты защищены<br>
+                🛡️ Webhook использует секретный путь
             </p>
         </div>
     </body>
@@ -332,7 +401,12 @@ def index():
 @app.route('/health')
 def health():
     """Health check для UptimeRobot"""
-    return jsonify({'status': 'ok', 'webhook_calls': webhook_count}), 200
+    return jsonify({
+        'status': 'ok', 
+        'webhook_calls': webhook_count,
+        'service': 'arcturus',
+        'admins': len(ADMIN_IDS)
+    }), 200
 
 @app.route('/webhook_info')
 def webhook_info():
@@ -342,20 +416,18 @@ def webhook_info():
     
     try:
         info = bot.get_webhook_info()
-        # Скрываем токен из URL
-        webhook_url = info.url
-        if BOT_TOKEN in webhook_url:
-            webhook_url = webhook_url.replace(BOT_TOKEN, '***HIDDEN***')
         
         return jsonify({
-            'url': webhook_url,
+            'url': '***HIDDEN***',
             'pending_updates': info.pending_update_count,
             'allowed_updates': info.allowed_updates,
             'last_error_date': info.last_error_date,
-            'last_error_message': info.last_error_message
+            'last_error_message': info.last_error_message if info.last_error_message else None,
+            'uses_secret_path': True
         })
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error("❌ Ошибка получения информации о webhook")
+        return jsonify({'error': 'Internal error'}), 500
 
 @app.route('/set_webhook')
 def set_webhook_route():
@@ -364,7 +436,8 @@ def set_webhook_route():
         return jsonify({'error': 'Access denied'}), 403
     
     try:
-        webhook_url = f"{RENDER_URL.rstrip('/')}/{BOT_TOKEN}"
+        # 🔥 Используем секретный путь вместо токена!
+        webhook_url = f"{RENDER_URL.rstrip('/')}/webhook/{WEBHOOK_SECRET_PATH}"
         
         # Удаляем старый
         bot.remove_webhook()
@@ -377,28 +450,31 @@ def set_webhook_route():
             allowed_updates=["message", "channel_post"]
         )
         
-        logger.info(f"✅ Webhook установлен")
+        logger.info("✅ Webhook установлен с секретным путём")
         
         info = bot.get_webhook_info()
         
         return jsonify({
             'status': 'success',
             'webhook_url': '***HIDDEN***',
-            'allowed_updates': info.allowed_updates
+            'allowed_updates': info.allowed_updates,
+            'uses_secret_path': True
         })
         
     except Exception as e:
-        logger.error(f"❌ Ошибка webhook: {e}")
-        return jsonify({'error': str(e)}), 500
+        logger.error("❌ Ошибка установки webhook")
+        return jsonify({'error': 'Internal error'}), 500
 
-@app.route(f'/{BOT_TOKEN}', methods=['POST'])
+# 🔥 БЕЗОПАСНЫЙ WEBHOOK с секретным путём
+@app.route(f'/webhook/{WEBHOOK_SECRET_PATH}', methods=['POST'])
 def webhook():
-    """Обработка webhook от Telegram"""
+    """Обработка webhook от Telegram (ЗАЩИЩЁННЫЙ ПУТЬ)"""
     global webhook_count
     webhook_count += 1
     
     try:
         if request.headers.get('content-type') != 'application/json':
+            logger.warning("⚠️ Неверный content-type webhook запроса")
             return 'Invalid content type', 403
         
         json_string = request.get_data().decode('utf-8')
@@ -411,9 +487,7 @@ def webhook():
         return '', 200
         
     except Exception as e:
-        logger.error(f"❌ Ошибка webhook: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.error("❌ Ошибка обработки webhook")
         return '', 500
 
 # ==================== STARTUP ====================
@@ -422,7 +496,8 @@ def setup_webhook_once():
     """Автоматическая установка webhook"""
     if not hasattr(app, 'webhook_initialized'):
         try:
-            webhook_url = f"{RENDER_URL.rstrip('/')}/{BOT_TOKEN}"
+            # 🔥 Используем секретный путь вместо токена!
+            webhook_url = f"{RENDER_URL.rstrip('/')}/webhook/{WEBHOOK_SECRET_PATH}"
             
             logger.info("=" * 70)
             logger.info("🔄 УСТАНОВКА WEBHOOK...")
@@ -437,8 +512,8 @@ def setup_webhook_once():
                 allowed_updates=["message", "channel_post"]
             )
             
-            logger.info(f"✅ Webhook: {webhook_url}")
-            logger.info(f"📋 Allowed: message, channel_post")
+            logger.info("✅ Webhook установлен с секретным путём")
+            logger.info("📋 Allowed: message, channel_post")
             
             app.webhook_initialized = True
             
@@ -447,7 +522,7 @@ def setup_webhook_once():
             logger.info("=" * 70)
             
         except Exception as e:
-            logger.error(f"❌ Ошибка webhook: {e}")
+            logger.error("❌ Ошибка установки webhook")
 
 # ==================== MAIN ====================
 if __name__ == '__main__':
