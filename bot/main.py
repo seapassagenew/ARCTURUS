@@ -31,7 +31,7 @@ def create_bot() -> telebot.TeleBot:
     print("✅ Бот создан успешно")
     print(f"📱 WebApp URL: {Config.WEBAPP_URL}")
     print(f"📢 Канал: {Config.CHANNEL_USERNAME}")
-    print(f"👥 Админов: {len(Config.ADMIN_IDS)}")
+    print(f"👥 Админов: {len(Config.ADMIN_ID)}")
     
     return bot
 
