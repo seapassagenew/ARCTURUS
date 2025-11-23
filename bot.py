@@ -90,7 +90,6 @@ def cmd_start(message):
         f"2. Добавь хэштег <code>{TRIGGER_HASHTAG}</code>\n"
         f"3. Пост опубликуется с кнопкой WebApp!\n\n"
         f"📢 Канал: {CHANNEL_USERNAME}\n"
-        f"🔑 Твой ID: <code>{message.from_user.id}</code>\n\n"
         f"<b>Команды:</b>\n"
         f"/start - Это сообщение\n"
         f"/status - Статус бота"
@@ -115,7 +114,6 @@ def cmd_status(message):
         f"<b>Канал:</b> {CHANNEL_USERNAME}\n"
         f"<b>Статус:</b> {channel_status}\n"
         f"<b>Триггер:</b> {TRIGGER_HASHTAG}\n"
-        f"<b>Admin ID:</b> {ADMIN_ID}\n"
         f"<b>WebApp:</b> {WEBAPP_URL}\n\n"
         f"✅ Бот активен"
     )
