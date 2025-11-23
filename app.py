@@ -112,10 +112,11 @@ def set_webhook_route():
         bot.remove_webhook()
         print("🗑️ Старый webhook удалён")
         
-        # Устанавливаем новый
+        # Устанавливаем новый с allowed_updates
         bot.set_webhook(
             url=webhook_url,
-            drop_pending_updates=True
+            drop_pending_updates=True,
+            allowed_updates=["message", "channel_post"]  # ← ИСПРАВЛЕНО!
         )
         
         print(f"✅ Webhook установлен: {webhook_url}")
@@ -126,7 +127,8 @@ def set_webhook_route():
         return jsonify({
             'status': 'success',
             'webhook_url': webhook_url,
-            'pending_updates': info.pending_update_count
+            'pending_updates': info.pending_update_count,
+            'allowed_updates': info.allowed_updates
         })
         
     except Exception as e:
@@ -187,17 +189,20 @@ def setup_webhook_once():
             bot.remove_webhook()
             print("🗑️ Старый webhook удалён")
             
-            # Устанавливаем новый
+            # КРИТИЧНО! Указываем какие updates принимать
             bot.set_webhook(
                 url=webhook_url,
-                drop_pending_updates=True
+                drop_pending_updates=True,
+                allowed_updates=["message", "channel_post"]  # ← ИСПРАВЛЕНО!
             )
             
             print(f"✅ Webhook установлен: {webhook_url}")
+            print(f"📋 Allowed updates: message, channel_post")
             
             # Проверяем
             info = bot.get_webhook_info()
             print(f"📊 Pending updates: {info.pending_update_count}")
+            print(f"📋 Allowed updates: {info.allowed_updates}")
             
             app.webhook_initialized = True
             
