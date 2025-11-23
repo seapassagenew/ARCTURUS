@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: ARCTURUS_TGBot
+    name: ARCTURUS-TGBot
     runtime: python
     plan: free
     region: frankfurt
     branch: main
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 120 app:app
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 app:app
     healthCheckPath: /health
     envVars:
       - key: PYTHON_VERSION
@@ -17,7 +17,7 @@ services:
         sync: false
       - key: WEBAPP_URL
         sync: false
-      - key: ADMIN_IDS
+      - key: ADMIN_ID
         sync: false
       - key: RENDER_URL
         sync: false

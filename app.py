@@ -1,11 +1,9 @@
 """
-Flask приложение для Telegram бота
-Минималистичная версия - только webhook и безопасность
+Flask приложение для Telegram бота - МИНИМУМ
 """
 
 import telebot
 from flask import Flask, request, jsonify
-from datetime import datetime
 from bot.config import Config
 from bot.main import create_bot, setup_webhook
 
@@ -16,66 +14,92 @@ app.config['SECRET_KEY'] = Config.SECRET_KEY
 # Создание бота
 bot = create_bot()
 
-# Статистика (минимум)
-stats = {
-    'start_time': datetime.now(),
-    'webhook_calls': 0
-}
+# Счётчик запросов
+webhook_count = 0
 
-print(f"🚀 Бот запущен!")
-print(f"📱 Ваш ID должен быть в ADMIN_IDS: {Config.ADMIN_IDS}")
-print(f"📢 Канал: {Config.CHANNEL_USERNAME}")
-print(f"🔗 Webhook URL: {Config.get_webhook_url()}")
-
-
-# ==================== ROUTES ====================
 
 @app.route('/')
 def index():
-    """Минимальная главная страница"""
-    return jsonify({
-        'status': 'running',
-        'bot': 'ARCTURUS_TGBot',
-        'uptime_seconds': int((datetime.now() - stats['start_time']).total_seconds())
-    }), 200
+    """Простая страница статуса"""
+    return f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ARCTURUS Bot</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: 50px auto;
+                padding: 20px;
+                background: #f5f5f5;
+            }}
+            .container {{
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }}
+            h1 {{ color: #667eea; }}
+            .status {{ color: #4ade80; font-weight: bold; }}
+            .info {{ 
+                background: #f9fafb;
+                padding: 15px;
+                border-radius: 5px;
+                margin: 15px 0;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🤖 ARCTURUS Bot</h1>
+            <p class="status">✅ Бот работает</p>
+            <div class="info">
+                <p><strong>Канал:</strong> {Config.CHANNEL_USERNAME}</p>
+                <p><strong>Admin ID:</strong> {Config.ADMIN_ID}</p>
+                <p><strong>Webhook вызовов:</strong> {webhook_count}</p>
+            </div>
+            <p><a href="/health">Health Check</a> | <a href="/webhook_info">Webhook Info</a></p>
+        </div>
+    </body>
+    </html>
+    """
 
 
 @app.route('/health')
 def health():
-    """Health check для UptimeRobot и Render"""
+    """Health check"""
     return jsonify({
-        'status': 'healthy',
-        'timestamp': datetime.now().isoformat()
+        'status': 'ok',
+        'bot': 'running',
+        'webhook_calls': webhook_count
     }), 200
 
 
 @app.route('/webhook_info')
 def webhook_info():
-    """Проверка webhook"""
+    """Информация о webhook"""
     try:
         info = bot.get_webhook_info()
         return jsonify({
             'url': info.url,
             'pending_updates': info.pending_update_count,
-            'last_error': info.last_error_message,
-            'webhook_calls': stats['webhook_calls']
+            'last_error': info.last_error_message
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
 
-@app.route('/setup_webhook')
+@app.route('/set_webhook')
 def set_webhook_route():
     """Установка webhook вручную"""
     try:
         success = setup_webhook(bot)
-        if success:
-            return jsonify({
-                'status': 'success',
-                'webhook_url': Config.get_webhook_url()
-            }), 200
-        else:
-            return jsonify({'status': 'error'}), 500
+        return jsonify({
+            'status': 'success' if success else 'error',
+            'url': Config.get_webhook_url()
+        })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -83,57 +107,29 @@ def set_webhook_route():
 @app.route(f'/{Config.BOT_TOKEN}', methods=['POST'])
 def webhook():
     """Обработка webhook от Telegram"""
-    stats['webhook_calls'] += 1
+    global webhook_count
+    webhook_count += 1
     
-    try:
-        if request.headers.get('content-type') == 'application/json':
-            json_string = request.get_data().decode('utf-8')
-            update = telebot.types.Update.de_json(json_string)
-            
-            # Логируем входящие обновления для отладки
-            if update.message:
-                user_id = update.message.from_user.id
-                username = update.message.from_user.username
-                text = update.message.text or update.message.caption or "[media]"
-                print(f"📨 Сообщение от @{username} (ID: {user_id}): {text[:50]}")
-            
-            bot.process_new_updates([update])
-            return '', 200
-        else:
-            return 'Invalid content type', 403
-    except Exception as e:
-        print(f"❌ Ошибка webhook: {e}")
-        return '', 500
+    if request.headers.get('content-type') == 'application/json':
+        json_string = request.get_data().decode('utf-8')
+        update = telebot.types.Update.de_json(json_string)
+        bot.process_new_updates([update])
+        return '', 200
+    else:
+        return 'Invalid content type', 403
 
 
-# ==================== STARTUP ====================
-
-def init_webhook():
-    """Инициализация webhook при запуске"""
-    if Config.RENDER_URL and not Config.DEBUG:
-        print("🔧 Установка webhook...")
-        success = setup_webhook(bot)
-        if success:
-            print("✅ Webhook установлен успешно")
-        else:
-            print("⚠️ Не удалось установить webhook автоматически")
-            print("👉 Вызовите вручную: /setup_webhook")
-
-
-# Устанавливаем webhook при первом запросе
 @app.before_request
-def before_first_request():
-    if not hasattr(app, '_webhook_initialized'):
-        init_webhook()
-        app._webhook_initialized = True
+def setup_webhook_once():
+    """Автоматическая установка webhook"""
+    if not hasattr(app, 'webhook_initialized'):
+        setup_webhook(bot)
+        app.webhook_initialized = True
 
 
 if __name__ == '__main__':
-    print("⚠️ Локальный режим!")
-    print("Для production используйте: gunicorn app:app")
-    
     app.run(
         host='0.0.0.0',
         port=Config.PORT,
-        debug=Config.DEBUG
+        debug=False
     )
