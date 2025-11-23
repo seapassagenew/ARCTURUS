@@ -52,11 +52,11 @@ def is_admin(message):
     return message.from_user.id == ADMIN_ID
 
 def create_markup():
-    """Создание кнопки с WebApp"""
+    """Создание кнопки с ссылкой на WebApp"""
     markup = InlineKeyboardMarkup()
     info_button = InlineKeyboardButton(
         text="📱 Открыть каталог",
-        web_app=WebAppInfo(url=WEBAPP_URL)
+        url=WEBAPP_URL  # ← ИСПРАВЛЕНО! Обычная URL вместо WebApp
     )
     markup.row(info_button)
     return markup
