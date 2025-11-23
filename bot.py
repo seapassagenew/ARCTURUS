@@ -29,6 +29,9 @@ RENDER_URL = os.getenv('RENDER_URL', '')
 PORT = int(os.getenv('PORT', '10000'))
 TRIGGER_HASHTAG = '#arcturus'
 
+# Секретный ключ для доступа к служебным эндпоинтам
+ADMIN_SECRET = os.getenv('ADMIN_SECRET', 'change_me_in_production')  # ← НОВОЕ!
+
 # Проверка переменных
 if not all([BOT_TOKEN, ADMIN_ID, CHANNEL_USERNAME, WEBAPP_URL, RENDER_URL]):
     logger.error("❌ Не все переменные окружения установлены!")
@@ -266,6 +269,13 @@ def handle_all_messages(message):
 app = Flask(__name__)
 webhook_count = 0
 
+def check_admin_access():
+    """Проверка доступа к служебным эндпоинтам"""
+    secret = request.args.get('secret')
+    if secret != ADMIN_SECRET:
+        return False
+    return True
+
 @app.route('/')
 def index():
     """Главная страница"""
@@ -307,14 +317,14 @@ def index():
             <p class="status">✅ Бот работает</p>
             <div class="info">
                 <p><strong>Канал:</strong> {CHANNEL_USERNAME}</p>
-                <p><strong>Admin ID:</strong> {ADMIN_ID}</p>
-                <p><strong>Webhook вызовов:</strong> {webhook_count}</p>
                 <p><strong>WebApp:</strong> <a href="{WEBAPP_URL}" target="_blank">Открыть</a></p>
+                <p><strong>Webhook вызовов:</strong> {webhook_count}</p>
             </div>
             <p>
-                <a href="/health">Health Check</a> | 
-                <a href="/webhook_info">Webhook Info</a> | 
-                <a href="/set_webhook">Set Webhook</a>
+                <a href="/health">Health Check</a>
+            </p>
+            <p style="font-size: 0.9em; opacity: 0.7; margin-top: 20px;">
+                🔒 Служебные эндпоинты защищены
             </p>
         </div>
     </body>
@@ -328,11 +338,19 @@ def health():
 
 @app.route('/webhook_info')
 def webhook_info():
-    """Информация о webhook"""
+    """Информация о webhook - ЗАЩИЩЕНО!"""
+    if not check_admin_access():
+        return jsonify({'error': 'Access denied'}), 403
+    
     try:
         info = bot.get_webhook_info()
+        # Скрываем токен из URL
+        webhook_url = info.url
+        if BOT_TOKEN in webhook_url:
+            webhook_url = webhook_url.replace(BOT_TOKEN, '***HIDDEN***')
+        
         return jsonify({
-            'url': info.url,
+            'url': webhook_url,
             'pending_updates': info.pending_update_count,
             'allowed_updates': info.allowed_updates,
             'last_error_date': info.last_error_date,
@@ -343,7 +361,10 @@ def webhook_info():
 
 @app.route('/set_webhook')
 def set_webhook_route():
-    """Установка webhook"""
+    """Установка webhook - ЗАЩИЩЕНО!"""
+    if not check_admin_access():
+        return jsonify({'error': 'Access denied'}), 403
+    
     try:
         webhook_url = f"{RENDER_URL.rstrip('/')}/{BOT_TOKEN}"
         
@@ -358,13 +379,13 @@ def set_webhook_route():
             allowed_updates=["message", "channel_post"]
         )
         
-        logger.info(f"✅ Webhook установлен: {webhook_url}")
+        logger.info(f"✅ Webhook установлен")
         
         info = bot.get_webhook_info()
         
         return jsonify({
             'status': 'success',
-            'webhook_url': webhook_url,
+            'webhook_url': '***HIDDEN***',
             'allowed_updates': info.allowed_updates
         })
         
