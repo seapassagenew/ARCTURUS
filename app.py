@@ -1,20 +1,29 @@
 """
-Flask приложение для Telegram бота - МИНИМУМ
+Flask приложение для ARCTURUS_Bot - ИСПРАВЛЕНО!
+Проблема была: бот не обрабатывал updates из webhook
 """
 
 import telebot
 from flask import Flask, request, jsonify
 from bot.config import Config
-from bot.main import create_bot, setup_webhook
+from bot.main import create_bot
 
 # Flask приложение
 app = Flask(__name__)
 app.config['SECRET_KEY'] = Config.SECRET_KEY
 
 # Создание бота
+print("=" * 70)
+print("🤖 СОЗДАНИЕ БОТА...")
+print("=" * 70)
+
 bot = create_bot()
 
-# Счётчик запросов
+print("=" * 70)
+print("✅ БОТ СОЗДАН!")
+print("=" * 70)
+
+# Счётчик webhook
 webhook_count = 0
 
 
@@ -59,6 +68,7 @@ def index():
                 <p><strong>Канал:</strong> {Config.CHANNEL_USERNAME}</p>
                 <p><strong>Admin ID:</strong> {Config.ADMIN_ID}</p>
                 <p><strong>Webhook вызовов:</strong> {webhook_count}</p>
+                <p><strong>WebApp:</strong> <a href="{Config.WEBAPP_URL}" target="_blank">Открыть</a></p>
             </div>
             <p><a href="/health">Health Check</a> | <a href="/webhook_info">Webhook Info</a></p>
         </div>
@@ -85,7 +95,8 @@ def webhook_info():
         return jsonify({
             'url': info.url,
             'pending_updates': info.pending_update_count,
-            'last_error': info.last_error_message
+            'last_error': info.last_error_message,
+            'last_error_date': info.last_error_date
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -95,39 +106,116 @@ def webhook_info():
 def set_webhook_route():
     """Установка webhook вручную"""
     try:
-        success = setup_webhook(bot)
+        webhook_url = Config.get_webhook_url()
+        
+        # Удаляем старый
+        bot.remove_webhook()
+        print("🗑️ Старый webhook удалён")
+        
+        # Устанавливаем новый
+        bot.set_webhook(
+            url=webhook_url,
+            drop_pending_updates=True
+        )
+        
+        print(f"✅ Webhook установлен: {webhook_url}")
+        
+        # Проверяем
+        info = bot.get_webhook_info()
+        
         return jsonify({
-            'status': 'success' if success else 'error',
-            'url': Config.get_webhook_url()
+            'status': 'success',
+            'webhook_url': webhook_url,
+            'pending_updates': info.pending_update_count
         })
+        
     except Exception as e:
+        print(f"❌ Ошибка установки webhook: {e}")
         return jsonify({'error': str(e)}), 500
 
 
 @app.route(f'/{Config.BOT_TOKEN}', methods=['POST'])
 def webhook():
-    """Обработка webhook от Telegram"""
+    """
+    КРИТИЧЕСКИ ВАЖНО!
+    Обработка webhook от Telegram
+    """
     global webhook_count
     webhook_count += 1
     
-    if request.headers.get('content-type') == 'application/json':
+    try:
+        # Проверяем Content-Type
+        if request.headers.get('content-type') != 'application/json':
+            print(f"⚠️ Неверный Content-Type: {request.headers.get('content-type')}")
+            return 'Invalid content type', 403
+        
+        # Получаем JSON
         json_string = request.get_data().decode('utf-8')
+        
+        # ВАЖНО! Логируем что пришло
+        print(f"📥 Webhook #{webhook_count}: {json_string[:200]}...")
+        
+        # Парсим update
         update = telebot.types.Update.de_json(json_string)
+        
+        # КРИТИЧНО! Обрабатываем update
         bot.process_new_updates([update])
+        
+        print(f"✅ Update #{webhook_count} обработан")
+        
         return '', 200
-    else:
-        return 'Invalid content type', 403
+        
+    except Exception as e:
+        print(f"❌ Ошибка обработки webhook: {e}")
+        import traceback
+        traceback.print_exc()
+        return '', 500
 
 
 @app.before_request
 def setup_webhook_once():
-    """Автоматическая установка webhook"""
+    """Автоматическая установка webhook при первом запросе"""
     if not hasattr(app, 'webhook_initialized'):
-        setup_webhook(bot)
-        app.webhook_initialized = True
+        try:
+            webhook_url = Config.get_webhook_url()
+            
+            print("=" * 70)
+            print("🔄 УСТАНОВКА WEBHOOK...")
+            print("=" * 70)
+            
+            # Удаляем старый
+            bot.remove_webhook()
+            print("🗑️ Старый webhook удалён")
+            
+            # Устанавливаем новый
+            bot.set_webhook(
+                url=webhook_url,
+                drop_pending_updates=True
+            )
+            
+            print(f"✅ Webhook установлен: {webhook_url}")
+            
+            # Проверяем
+            info = bot.get_webhook_info()
+            print(f"📊 Pending updates: {info.pending_update_count}")
+            
+            app.webhook_initialized = True
+            
+            print("=" * 70)
+            print("✅ WEBHOOK ГОТОВ!")
+            print("=" * 70)
+            
+        except Exception as e:
+            print(f"❌ Ошибка webhook: {e}")
+            import traceback
+            traceback.print_exc()
 
 
 if __name__ == '__main__':
+    print("=" * 70)
+    print("🚀 ЗАПУСК FLASK...")
+    print("=" * 70)
+    
     app.run(
         host='0.0.0.0',
         port=Config.PORT,
