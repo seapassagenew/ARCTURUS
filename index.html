@@ -436,458 +436,359 @@
 	<header class="header">
 		<button class="back-button" id="backButton" onclick="goBack()">Назад</button>
 		<a href="https://vk.com/arcturus_official"><img src="assets/logo.svg" alt="ARCTURUS" class="logo"></a>
-    </header>
+	</header>
 
-		<div class="nav-buttons">
-			<button class="nav-button active" data-category="greenhouses">Теплицы</button>
-			<button class="nav-button" data-category="fertilizers">Удобрения</button>
-			<button class="nav-button" data-category="equipment">Техника</button>
-		</div>
+	<div class="nav-buttons">
+		<button class="nav-button active" data-category="greenhouses">Теплицы</button>
+		<button class="nav-button" data-category="fertilizers">Удобрения</button>
+		<button class="nav-button" data-category="equipment">Техника</button>
+	</div>
 
-		<div class="container">
-			<!-- Теплицы -->
-			<div id="greenhouses-list" class="products-grid">
-				<div class="product-card" onclick="showDetail(0)">
-					<img src="https://sun9-7.userapi.com/s/v1/ig2/1qYwV6k4h4NUiQ0z58l-6ksA1dwDRXlIv-Jvg7lT7wE3SZa7N5qy4n3e8ngFXlS4wfkB44_Nay6FADPNO-ncFpak.jpg?quality=95&as=32x19,48x28,72x42,108x63,160x93,240x140,360x210,480x280,540x315,640x374,720x421,772x451&from=bu&u=z8j2bzH6z_HfJ3wWYsDA4JMQQaLKfHYKpSvXRN4TNkU" alt="Вертикальная гидропонная посадочная система">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Вертикальная гидропонная посадочная система</div>
-					</div>
+	<div class="container">
+		<!-- Теплицы -->
+		<div id="greenhouses-list" class="products-grid">
+			<div class="product-card" onclick="showDetail(0)">
+				<img src="https://sun9-7.userapi.com/s/v1/ig2/1qYwV6k4h4NUiQ0z58l-6ksA1dwDRXlIv-Jvg7lT7wE3SZa7N5qy4n3e8ngFXlS4wfkB44_Nay6FADPNO-ncFpak.jpg?quality=95&as=32x19,48x28,72x42,108x63,160x93,240x140,360x210,480x280,540x315,640x374,720x421,772x451&from=bu&u=z8j2bzH6z_HfJ3wWYsDA4JMQQaLKfHYKpSvXRN4TNkU" alt="Вертикальная гидропонная посадочная система">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Вертикальная гидропонная посадочная система</div>
 				</div>
-				<div class="product-card" onclick="showDetail(1)">
-					<img src="https://sun9-31.userapi.com/s/v1/ig2/PMAA8-bWxYVlPkecM2Dey-ppoouevFAoxUQ80y6VoV_P5Qt7Oh6ZOxD9X64-wB3Smw9Mg-I52U1v1nM2n7fXiuIr.jpg?quality=95&as=32x24,48x36,72x55,108x82,160x122,240x182,360x273,480x365,540x410,640x486,707x537&from=bu&u=6PBlrTOJQ0wuTLnr8VvE2EzSux-LxSUa85n5M1ORUsk" alt="Гидропонная посадочная система">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Гидропонная посадочная система</div>
-					</div>
-				</div>
-				<div class="product-card" onclick="showDetail(2)">
-					<img src="https://sun9-56.userapi.com/s/v1/ig2/6hMVqaba2Tx26vq81HE4IMHq62aXLQ-fbws18KlsEjeUd4l1IA38cJVupknVJ57c7vEgngLyanDSl-bAvnACX0NC.jpg?quality=95&as=32x32,48x47,72x71,108x107,160x158,240x237,360x356,480x474,482x476&from=bu&u=n9TOtfaPnFBkI3FHmc2mQUpegnpLKxd3tnZRRehuICE&cs=482x0" alt="Гидропонная посадочная система «А» образная">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Гидропонная посадочная система «А» образная</div>
-					</div>
-				</div>
-				<div class="product-card" onclick="showDetail(3)">
-					<img src="https://sun9-8.userapi.com/s/v1/ig2/U_VO7J7I2_rsGrbQPltGmWBWz7MyLxhKsSHQDNSV5n-HBg-aEnBkiTx1Yqi0xYG2BNP4YvCfkfzO-UqyfsoEMhli.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=BbmE2zDn5SxO8_UuGYHPDcfZbCUnrYHS_q5Zt5l34zg&cs=540x0" alt="Система посадки на гребне с использованием кокосового волокнистого субстрата">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Система посадки на гребне с использованием кокосового волокнистого субстрата</div>
-					</div>
-				</div>
-				<div class="product-card" onclick="showDetail(4)">
-					<img src="https://sun9-28.userapi.com/s/v1/ig2/52I5evAJqmp5PLQ5GNN51EalFot8HzNUCWNtyXc_BtHWcqaS63DgL4SfnByArgdu3IITfjtEWPGoBMJsSr3jwXFR.jpg?quality=95&as=32x23,48x35,72x52,108x79,160x116,240x175,360x262,480x349,540x393,640x466,697x507&from=bu&u=mNXytGUKZBY1g7GmM5qRTHESfLRCPGK7nSHXMTJOYLw" alt="Однопленочная теплица">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Однопленочная теплица</div>
-					</div>
-				</div>
-				<div class="product-card" onclick="showDetail(5)">
-					<img src="https://sun9-7.userapi.com/s/v1/ig2/XiW4Lji3BHjXFB1iG-uJuEq-2DekScleAuHBjVE1_a1qpXT04RnKiwJOGCZLAgjL6NDYy75gSIpqwZlZ17mi_MRI.jpg?quality=95&as=32x20,48x29,72x44,108x66,160x98,240x146,360x220,480x293,540x330,640x391,720x439,1080x659,1280x781,1437x877&from=bu&u=wcPwaucqaZgHG3fipgug9aixD6wjVstv4zgZ7jpNhBY&cs=1080x0" alt="Теплоизоляционная пленочная теплица "Канада"">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Теплоизоляционная пленочная теплица "Канада"</div>
-					</div>
-				</div>
-				<div class="product-card" onclick="showDetail(6)">
-					<img src="https://sun9-20.userapi.com/s/v1/ig2/tcfMyKCWeJf9Wx9_j5kBLz6oKw5UjPx843KkOEZj6ZrCTyf07sdKyKCvnKrni5MGnUioSeUy8PzwSVEnAXw0AL6T.jpg?quality=95&as=32x34,48x50,72x76,108x114,160x168,240x252,360x379,480x505,540x568,640x673,715x752&from=bu&u=WLg5bujuw7Fa9SD0y2A9cgKum0VWgPv9cWIpYcVyi0I&cs=540x0" alt="Широкопролётная утеплённая теплица">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Широкопролётная утеплённая теплица</div>
-					</div>
-				</div>
-				<div class="product-card" onclick="showDetail(7)">
-					<img src="https://sun9-63.userapi.com/s/v1/ig2/PggK6hw519eTTVRf78L1aeS6Bjz4ScfIoabpuJbT9PBovWWAsXwa-HjqNGX2Z3ob5gPeJNn9iZBzLUkrBagZy21s.jpg?quality=95&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1080x810,1280x960,1440x1080,2560x1920&from=bu&u=eLGHv-DRAYp7La3iVYYR_hU9SrVxpGShvst-awPRlRI&cs=1080x0" alt="Многопролётная теплица с плёночным покрытием">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Многопролётная теплица с плёночным покрытием</div>
-					</div>
-				</div>
-				<div class="product-card" onclick="showDetail(8)">
-					<img src="https://sun9-71.userapi.com/s/v1/ig2/d81iv0NDBmRYhqDGlWSZaKAdpQesHRdeET77MaIlo7sVZZG0lBytKCGnM0-jBnMKpZeNuOj4SvvlkMyvR6vXl9zR.jpg?quality=95&as=32x22,48x32,72x49,108x73,160x108,240x162,360x243,480x324,540x365,640x432,720x486,948x640&from=bu&u=rYhJ8szlmHfJ5yGlWDjheBVagW92FmAHDgcMywiL5sw" alt="Теплица из поликарбоната">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Теплица из поликарбоната</div>
-					</div>
-				</div>
-				<div class="product-card" onclick="showDetail(9)">
-					<img src="https://sun9-12.userapi.com/s/v1/ig2/R18J0hb-Ob1H4OHxOw0vW7XooKIQF2uqFPeMUobZjKuKbf5OmyTcczBDhES8rdGtIpuVtRl3azFNiJMbsDSZJ3FW.jpg?quality=95&as=32x22,48x33,72x49,108x74,160x109,240x163,360x245,480x327,540x368,640x436,720x490,1080x736,1280x872&from=bu&u=wBU0aE2z5VJwFGseLGPW3HzJPp_Zl5ItKDwwOVC_GHk&cs=1080x0" alt="Стеклянная теплица">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Стеклянная теплица</div>
-					</div>
-				</div>
-				<div class="product-card" onclick="showDetail(10)">
-					<img src="https://sun9-12.userapi.com/s/v1/ig2/MKuf_bOJJyx0Q6wS2qZ1obDcltanzrCeolI8XArrqWIFthjIlzgT9VzxlzXveUuJ9LQIzlTO9qkTV5-h6GQbpv9W.jpg?quality=95&as=32x24,48x37,72x55,108x83,160x122,240x184,360x275,480x367,540x413,640x490,694x531&from=bu&u=DYBV_k-kiHWb0q6StKWxQjLq5cQdEYa3xE3dKx_3i3E" alt="Система беспочвенного выращивания на кокосовом субстрате">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Система беспочвенного выращивания на кокосовом субстрате</div>
-					</div>
-				</div>
-				</div>
-
-			<!-- Детальный вид теплицы -->
-			<div id="greenhouse-detail" class="detail-view">
-				<img id="detail-image" class="detail-image" src="" alt="">
-				<div class="detail-description">
-					<h2 id="detail-title"></h2>
-					<p id="detail-text"></p>
-				</div>
-				<a href="tel:+79114551449" class="order-button">Заказать</a>
 			</div>
-
-			<!-- Удобрения -->
-			<div id="fertilizers-list" class="products-grid grid-layout hidden">
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/magnesium-sulfate-sevenfold-mgso47h2o/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/11/img-товар-на-подложке-3.png" alt="Сульфат магния семиводный">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Сульфат магния семиводный</div>
-					</div>
-				</a>
-				
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/magnesium-sulfate-monohodic-mgso4-h2o/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/11/img-товар-на-подложке-4.png" alt="Сульфат магния одноводный">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Сульфат магния одноводный</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/complex-magnesium-fertilizer/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/11/img-товар-на-подложке-5.png" alt="Комплексное магниевое удобрение">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Комплексное магниевое удобрение</div>
-					</div>
-				</a>
-				
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/nps-ca-series/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке.png" alt="NPS (Ca)">
-					<div class="product-card-overlay">
-						<div class="product-card-title">NPS (Ca)</div>
-					</div>
-				</a>
-				
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/npks-ca/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-1.png" alt="NPКS (Ca)">
-					<div class="product-card-overlay">
-						<div class="product-card-title">NPКS (Ca)</div>
-					</div>
-				</a>
-				
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/pк-ca/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-2.png" alt="PK (Ca)">
-					<div class="product-card-overlay">
-						<div class="product-card-title">PK (Ca)</div>
-					</div>
-				</a>
-				
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/kmg/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-3.png" alt="KMg">
-					<div class="product-card-overlay">
-						<div class="product-card-title">KMg</div>
-					</div>
-				</a>
-				
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/ammonium-sulfate-fertim/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-4.png" alt="Сульфат аммония">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Сульфат аммония</div>
-					</div>
-				</a>
-				
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/potassium-chloride-fertim/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-5.png" alt="Калий хлористый">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Калий хлористый</div>
-					</div>
-				</a>
-				
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/ammonium-nitrate/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-2.png" alt="Аммиачная селитра">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Аммиачная селитра</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/carbamide/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-3.png" alt="Карбамид (мочевина)">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Карбамид (мочевина)</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/nitroammophoska-azofoska/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-7.png" alt="Нитроаммофоска (Азофоска)">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Нитроаммофоска (Азофоска)</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/ammonium-sulfate-granular/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-8.png" alt="Сульфат аммония">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Сульфат аммония</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/potassium-chloride-60-fine/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/CaliyHlor60.png" alt="Калий хлористый 60%">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Калий хлористый 60%</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/potassium-chloride-60-granulated/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-10.png" alt="Калий хлористый 60%">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Калий хлористый 60%</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/crushed-potassium-chloride-40/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-9.png" alt="Калий хлорид дробленный 40%">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Калий хлорид дробленный 40%</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/ammonium-sulfate-nitrate/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-6.png" alt="Сульфат-нитрат аммония N:S (26:13)">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Сульфат-нитрат аммония N:S (26:13)</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/ammonium-sulfate/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-4.png" alt="СУЛЬФАТ АММОНИЯ">
-					<div class="product-card-overlay">
-						<div class="product-card-title">СУЛЬФАТ АММОНИЯ</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/sulfat_magniya_7_vodniy/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/04/img-товар-на-подложке-2.png" alt="МАГНИЙ СЕРНОКИСЛЫЙ 7-ВОДНЫЙ">
-					<div class="product-card-overlay">
-						<div class="product-card-title">СУЛЬФАТ МАГНИЯ 7-ВОДНЫЙ</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/nitrat-kaliya-marki-a/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/04/img-товар-на-подложке-23-1.png" alt="НИТРАТ КАЛИЯ">
-					<div class="product-card-overlay">
-						<div class="product-card-title">НИТРАТ КАЛИЯ</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/epsom-salt/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/07/epsomsalt.png" alt="Английская соль">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Английская соль</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/biokley/unikley-dlya-rapsa-i-gorokha/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/04/img-товар-на-подложке-58.png" alt="Униклей для рапса и гороха">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Униклей для рапса и гороха</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/biokley/liposamklei/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-48.png" alt="Липосам Биоклей">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Липосам Биоклей</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/ammonium-calcium-nitrate-grade-a-premium/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/06/img-товар-на-подложке-27.png" alt="НИТРАТ КАЛЬЦИЯ">
-					<div class="product-card-overlay">
-						<div class="product-card-title">НИТРАТ КАЛЬЦИЯ</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/stubble-destructors/eco/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-55.png" alt="Экостерн">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Экостерн</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/potassium-sulfate-solupotasse/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/06/img-товар-на-подложке-30.png" alt="Сульфат Калия">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Сульфат Калия</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/monokalium-phosphate-haifa/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/06/img-товар-на-подложке-29.png" alt="Монокалий фосфат">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Монокалий фосфат</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/potassium-nitrate-multi-to-gg/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/06/img-товар-на-подложке-28.png" alt="Нитрат калия Multi-К GG">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Нитрат калия Multi-К GG</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/stubble-destructors/ecosterntill/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-49.png" alt="Экостерн NO TILL">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Экостерн NO TILL</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/fungitsidy/fitohelp/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-56.png" alt="Фитохелп">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Фитохелп</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/fungitsidy/mikohelp/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-57.png" alt="Микохелp">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Микохелп</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/biokley/liposam/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-47.png" alt="Биоприлипатель Липосам">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Биоприлипатель Липосам</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/biokley/prilipatel/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-46.png" alt="Прилипатель «Униклей»">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Прилипатель «Униклей»</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/mycorrhizal-preparations/mfrend/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-52.png" alt="Микофренд">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Микофренд</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/rc-mobilizers/groundfix/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-53.png" alt="Граундфикс">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Граундфикс</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/stimulyatory-i-regulyatory-rosta/bio-gumat/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/04/img-товар-на-подложке-54.png" alt="Био Гумат">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Био Гумат</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/stimulyatory-i-regulyatory-rosta/uni/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-59.png" alt="Универсальный Биокомплекс">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Универсальный Биокомплекс</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/stimulyatory-i-regulyatory-rosta/bioazot/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-51.png" alt="Биоазот">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Биоазот</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/fungitsidy/btueat/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-50.png" alt="Биозащита от болезней Биокомплекс">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Биозащита от болезней Биокомплекс</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/fertilizer-npk-202020-me-2/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/02/img-товар-на-подложке-14.png" alt="NPK 20:20:20 + ME">
-					<div class="product-card-overlay">
-						<div class="product-card-title">NPK 20:20:20 + ME</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/npk-134013-me/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/02/img-товар-на-подложке-14.png" alt="NPK 13:40:13 + ME">
-					<div class="product-card-overlay">
-						<div class="product-card-title">NPK 13:40:13 + ME</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/fertilizer-npk-181818-3mgo-me/"
-					class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/02/img-товар-на-подложке-14.png" alt="NPK 18:18:18 + 3MgO + ME">
-					<div class="product-card-overlay">
-						<div class="product-card-title">NPK 18:18:18 + 3MgO + ME</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/fertilizer-npk-151530-mgo-me/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/02/img-товар-на-подложке-14.png" alt="NPK 15:15:30 + MgO + ME">
-					<div class="product-card-overlay">
-						<div class="product-card-title">NPK 15:15:30 + MgO + ME</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/fertilizer-npk-12831-2mgo-me/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/02/img-товар-на-подложке-14.png" alt="NPK 12:8:31 + 2MgO + ME">
-					<div class="product-card-overlay">
-						<div class="product-card-title">NPK 12:8:31 + 2MgO + ME</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/npk-fertilizer-31138-4mgo-me/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/02/img-товар-на-подложке-14.png" alt="NPK 3:11:38 + 4MgO + 8S + ME">
-					<div class="product-card-overlay">
-						<div class="product-card-title">NPK 3:11:38 + 4MgO + 8S + ME</div>
-					</div>
-				</a>
-
-				<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/fertilizer-npk-61435-2mgo-me/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/02/img-товар-на-подложке-14.png" alt="NPK 6:14:35 + 2MgO + ME">
-					<div class="product-card-overlay">
-						<div class="product-card-title">NPK 6:14:35 + 2MgO + ME</div>
-					</div>
-				</a>
+			<div class="product-card" onclick="showDetail(1)">
+				<img src="https://sun9-31.userapi.com/s/v1/ig2/PMAA8-bWxYVlPkecM2Dey-ppoouevFAoxUQ80y6VoV_P5Qt7Oh6ZOxD9X64-wB3Smw9Mg-I52U1v1nM2n7fXiuIr.jpg?quality=95&as=32x24,48x36,72x55,108x82,160x122,240x182,360x273,480x365,540x410,640x486,707x537&from=bu&u=6PBlrTOJQ0wuTLnr8VvE2EzSux-LxSUa85n5M1ORUsk" alt="Гидропонная посадочная система">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Гидропонная посадочная система</div>
+				</div>
 			</div>
-
-			<!-- Техника -->
-			<div id="equipment-list" class="products-grid grid-layout hidden">
-				<a href="https://agrosoyuznsk.ru/product/agro-robots/lawn-mower-remote/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-1.png" alt="Газонокосилка">
-					<div class="product-card-overlay">
-						<div class="product-card-title">Газонокосилка</div>
-					</div>
-				</a>
-				<a href="https://agrosoyuznsk.ru/product/agro-robots/mq-м200/" class="product-card">
-					<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке.png" alt="MQ М200">
-					<div class="product-card-overlay">
-						<div class="product-card-title">MQ М200</div>
-					</div>
-				</a>
+			<div class="product-card" onclick="showDetail(2)">
+				<img src="https://sun9-56.userapi.com/s/v1/ig2/6hMVqaba2Tx26vq81HE4IMHq62aXLQ-fbws18KlsEjeUd4l1IA38cJVupknVJ57c7vEgngLyanDSl-bAvnACX0NC.jpg?quality=95&as=32x32,48x47,72x71,108x107,160x158,240x237,360x356,480x474,482x476&from=bu&u=n9TOtfaPnFBkI3FHmc2mQUpegnpLKxd3tnZRRehuICE&cs=482x0" alt="Гидропонная посадочная система «А» образная">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Гидропонная посадочная система «А» образная</div>
+				</div>
+			</div>
+			<div class="product-card" onclick="showDetail(3)">
+				<img src="https://sun9-8.userapi.com/s/v1/ig2/U_VO7J7I2_rsGrbQPltGmWBWz7MyLxhKsSHQDNSV5n-HBg-aEnBkiTx1Yqi0xYG2BNP4YvCfkfzO-UqyfsoEMhli.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&u=BbmE2zDn5SxO8_UuGYHPDcfZbCUnrYHS_q5Zt5l34zg&cs=540x0" alt="Система посадки на гребне с использованием кокосового волокнистого субстрата">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Система посадки на гребне с использованием кокосового волокнистого
+						субстрата</div>
+				</div>
+			</div>
+			<div class="product-card" onclick="showDetail(4)">
+				<img src="https://sun9-28.userapi.com/s/v1/ig2/52I5evAJqmp5PLQ5GNN51EalFot8HzNUCWNtyXc_BtHWcqaS63DgL4SfnByArgdu3IITfjtEWPGoBMJsSr3jwXFR.jpg?quality=95&as=32x23,48x35,72x52,108x79,160x116,240x175,360x262,480x349,540x393,640x466,697x507&from=bu&u=mNXytGUKZBY1g7GmM5qRTHESfLRCPGK7nSHXMTJOYLw" alt="Однопленочная теплица">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Однопленочная теплица</div>
+				</div>
+			</div>
+			<div class="product-card" onclick="showDetail(5)">
+				<img src="https://sun9-7.userapi.com/s/v1/ig2/XiW4Lji3BHjXFB1iG-uJuEq-2DekScleAuHBjVE1_a1qpXT04RnKiwJOGCZLAgjL6NDYy75gSIpqwZlZ17mi_MRI.jpg?quality=95&as=32x20,48x29,72x44,108x66,160x98,240x146,360x220,480x293,540x330,640x391,720x439,1080x659,1280x781,1437x877&from=bu&u=wcPwaucqaZgHG3fipgug9aixD6wjVstv4zgZ7jpNhBY&cs=1080x0" alt="Теплоизоляционная пленочная теплица "Канада"">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Теплоизоляционная пленочная теплица "Канада"</div>
+				</div>
+			</div>
+			<div class="product-card" onclick="showDetail(6)">
+				<img src="https://sun9-20.userapi.com/s/v1/ig2/tcfMyKCWeJf9Wx9_j5kBLz6oKw5UjPx843KkOEZj6ZrCTyf07sdKyKCvnKrni5MGnUioSeUy8PzwSVEnAXw0AL6T.jpg?quality=95&as=32x34,48x50,72x76,108x114,160x168,240x252,360x379,480x505,540x568,640x673,715x752&from=bu&u=WLg5bujuw7Fa9SD0y2A9cgKum0VWgPv9cWIpYcVyi0I&cs=540x0" alt="Широкопролётная утеплённая теплица">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Широкопролётная утеплённая теплица</div>
+				</div>
+			</div>
+			<div class="product-card" onclick="showDetail(7)">
+				<img src="https://sun9-63.userapi.com/s/v1/ig2/PggK6hw519eTTVRf78L1aeS6Bjz4ScfIoabpuJbT9PBovWWAsXwa-HjqNGX2Z3ob5gPeJNn9iZBzLUkrBagZy21s.jpg?quality=95&as=32x24,48x36,72x54,108x81,160x120,240x180,360x270,480x360,540x405,640x480,720x540,1080x810,1280x960,1440x1080,2560x1920&from=bu&u=eLGHv-DRAYp7La3iVYYR_hU9SrVxpGShvst-awPRlRI&cs=1080x0" alt="Многопролётная теплица с плёночным покрытием">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Многопролётная теплица с плёночным покрытием</div>
+				</div>
+			</div>
+			<div class="product-card" onclick="showDetail(8)">
+				<img src="https://sun9-71.userapi.com/s/v1/ig2/d81iv0NDBmRYhqDGlWSZaKAdpQesHRdeET77MaIlo7sVZZG0lBytKCGnM0-jBnMKpZeNuOj4SvvlkMyvR6vXl9zR.jpg?quality=95&as=32x22,48x32,72x49,108x73,160x108,240x162,360x243,480x324,540x365,640x432,720x486,948x640&from=bu&u=rYhJ8szlmHfJ5yGlWDjheBVagW92FmAHDgcMywiL5sw" alt="Теплица из поликарбоната">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Теплица из поликарбоната</div>
+				</div>
+			</div>
+			<div class="product-card" onclick="showDetail(9)">
+				<img src="https://sun9-12.userapi.com/s/v1/ig2/R18J0hb-Ob1H4OHxOw0vW7XooKIQF2uqFPeMUobZjKuKbf5OmyTcczBDhES8rdGtIpuVtRl3azFNiJMbsDSZJ3FW.jpg?quality=95&as=32x22,48x33,72x49,108x74,160x109,240x163,360x245,480x327,540x368,640x436,720x490,1080x736,1280x872&from=bu&u=wBU0aE2z5VJwFGseLGPW3HzJPp_Zl5ItKDwwOVC_GHk&cs=1080x0" alt="Стеклянная теплица">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Стеклянная теплица</div>
+				</div>
+			</div>
+			<div class="product-card" onclick="showDetail(10)">
+				<img src="https://sun9-12.userapi.com/s/v1/ig2/MKuf_bOJJyx0Q6wS2qZ1obDcltanzrCeolI8XArrqWIFthjIlzgT9VzxlzXveUuJ9LQIzlTO9qkTV5-h6GQbpv9W.jpg?quality=95&as=32x24,48x37,72x55,108x83,160x122,240x184,360x275,480x367,540x413,640x490,694x531&from=bu&u=DYBV_k-kiHWb0q6StKWxQjLq5cQdEYa3xE3dKx_3i3E" alt="Система беспочвенного выращивания на кокосовом субстрате">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Система беспочвенного выращивания на кокосовом субстрате</div>
+				</div>
 			</div>
 		</div>
 
-		<footer class="footer">
-			<div class="footer-title">КОНТАКТЫ ДЛЯ СВЯЗИ</div>
-			<div class="footer-contacts">
-				<a href="tel:+79311096300"><b>+7 (931) 109-63-00</b></a>
-				<a href="mailto:arcturus_office@mail.ru"><b>arcturus_office@mail.ru</b></a>
+		<!-- Детальный вид теплицы -->
+		<div id="greenhouse-detail" class="detail-view">
+			<img id="detail-image" class="detail-image" src="" alt="">
+			<div class="detail-description">
+				<h2 id="detail-title"></h2>
+				<p id="detail-text"></p>
 			</div>
-		</footer>
+			<a href="tel:+79114551449" class="order-button">Заказать</a>
+		</div>
 
-		<script>
-			const greenhousesData = [
+		<!-- Удобрения -->
+		<div id="fertilizers-list" class="products-grid grid-layout hidden">
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/magnesium-sulfate-sevenfold-mgso47h2o/"
+				class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/11/img-товар-на-подложке-3.png" alt="Сульфат магния семиводный">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Сульфат магния семиводный</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/magnesium-sulfate-monohodic-mgso4-h2o/"
+				class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/11/img-товар-на-подложке-4.png" alt="Сульфат магния одноводный">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Сульфат магния одноводный</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/nitrat-kaliya-marki-a/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/04/img-товар-на-подложке-23-1.png" alt="НИТРАТ КАЛИЯ">
+				<div class="product-card-overlay">
+					<div class="product-card-title">НИТРАТ КАЛИЯ</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/monokalium-phosphate/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/01/img-товар-на-подложке-13.png" alt="Монокалий фосфат">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Монокалий фосфат</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/complex-magnesium-fertilizer/"
+				class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/11/img-товар-на-подложке-5.png" alt="Комплексное магниевое удобрение">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Комплексное магниевое удобрение</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/nps-ca-series/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке.png" alt="NPS (Ca)">
+				<div class="product-card-overlay">
+					<div class="product-card-title">NPS (Ca)</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/npks-ca/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-1.png" alt="NPКS (Ca)">
+				<div class="product-card-overlay">
+					<div class="product-card-title">NPКS (Ca)</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/npk-udobreniya/pк-ca/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-2.png" alt="PK (Ca)">
+				<div class="product-card-overlay">
+					<div class="product-card-title">PK (Ca)</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/kmg/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-3.png" alt="KMg">
+				<div class="product-card-overlay">
+					<div class="product-card-title">KMg</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/ammonium-sulfate-fertim/"
+				class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-4.png" alt="Сульфат аммония">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Сульфат аммония</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/potassium-chloride-fertim/"
+				class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/12/img-товар-на-подложке-5.png" alt="Калий хлористый">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Калий хлористый</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/ammonium-nitrate/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-2.png" alt="Аммиачная селитра">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Аммиачная селитра</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/carbamide/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-3.png" alt="Карбамид (мочевина)">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Карбамид (мочевина)</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/ammonium-sulfate-granular/"
+				class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-8.png" alt="Сульфат аммония">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Сульфат аммония</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/potassium-chloride-60-fine/"
+				class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/CaliyHlor60.png" alt="Калий хлористый 60%">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Калий хлористый 60%</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/crushed-potassium-chloride-40/"
+				class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-9.png" alt="Калий хлорид дробленный 40%">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Калий хлорид дробленный 40%</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/epsom-salt/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/07/epsomsalt.png" alt="Английская соль">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Английская соль</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/biokley/unikley-dlya-rapsa-i-gorokha/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/04/img-товар-на-подложке-58.png" alt="Униклей для рапса и гороха">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Униклей для рапса и гороха</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/biokley/liposamklei/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-48.png" alt="Липосам Биоклей">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Липосам Биоклей</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/stubble-destructors/eco/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-55.png" alt="Экостерн">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Экостерн</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mineralnye-udobreniya/potassium-sulfate-solupotasse/"
+				class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/06/img-товар-на-подложке-30.png" alt="Сульфат Калия">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Сульфат Калия</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/stubble-destructors/ecosterntill/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-49.png" alt="Экостерн NO TILL">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Экостерн NO TILL</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/fungitsidy/fitohelp/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-56.png" alt="Фитохелп">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Фитохелп</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/fungitsidy/mikohelp/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-57.png" alt="Микохелp">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Микохелп</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/biokley/liposam/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-47.png" alt="Биоприлипатель Липосам">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Биоприлипатель Липосам</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/biokley/prilipatel/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-46.png" alt="Прилипатель «Униклей»">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Прилипатель «Униклей»</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/mycorrhizal-preparations/mfrend/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-52.png" alt="Микофренд">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Микофренд</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/rc-mobilizers/groundfix/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-53.png" alt="Граундфикс">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Граундфикс</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/stimulyatory-i-regulyatory-rosta/bio-gumat/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/04/img-товар-на-подложке-54.png" alt="Био Гумат">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Био Гумат</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/stimulyatory-i-regulyatory-rosta/uni/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-59.png" alt="Универсальный Биокомплекс">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Универсальный Биокомплекс</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/stimulyatory-i-regulyatory-rosta/bioazot/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-51.png" alt="Биоазот">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Биоазот</div>
+				</div>
+			</a>
+
+			<a href="https://agrosoyuznsk.ru/product/fungitsidy/btueat/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2024/05/img-товар-на-подложке-50.png" alt="Биозащита от болезней Биокомплекс">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Биозащита от болезней Биокомплекс</div>
+				</div>
+			</a>
+		</div>
+
+		<!-- Техника -->
+		<div id="equipment-list" class="products-grid grid-layout hidden">
+			<a href="https://agrosoyuznsk.ru/product/agro-robots/lawn-mower-remote/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке-1.png" alt="Газонокосилка">
+				<div class="product-card-overlay">
+					<div class="product-card-title">Газонокосилка</div>
+				</div>
+			</a>
+			<a href="https://agrosoyuznsk.ru/product/agro-robots/mq-м200/" class="product-card">
+				<img src="https://agrosoyuznsk.ru/wp-content/uploads/2025/09/img-товар-на-подложке.png" alt="MQ М200">
+				<div class="product-card-overlay">
+					<div class="product-card-title">MQ М200</div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="footer-title">КОНТАКТЫ ДЛЯ СВЯЗИ</div>
+		<div class="footer-contacts">
+			<a href="tel:+79311096300"><b>+7 (931) 109-63-00</b></a>
+			<a href="mailto:arcturus_office@mail.ru"><b>arcturus_office@mail.ru</b></a>
+		</div>
+	</footer>
+
+	<script>
+		const greenhousesData = [
             {
                 title: 'Вертикальная гидропонная посадочная система',
                 image: 'https://sun9-7.userapi.com/s/v1/ig2/1qYwV6k4h4NUiQ0z58l-6ksA1dwDRXlIv-Jvg7lT7wE3SZa7N5qy4n3e8ngFXlS4wfkB44_Nay6FADPNO-ncFpak.jpg?quality=95&as=32x19,48x28,72x42,108x63,160x93,240x140,360x210,480x280,540x315,640x374,720x421,772x451&from=bu&u=z8j2bzH6z_HfJ3wWYsDA4JMQQaLKfHYKpSvXRN4TNkU',
@@ -1019,7 +920,7 @@
                 img.loading = 'lazy';
             });
         });
-		</script>
+	</script>
 </body>
 
 </html>
